@@ -1,0 +1,28 @@
+<%- include ("includes/header") %>
+
+<div class="container">
+    
+    <h1>Colleges List</h1>
+    
+  <%  maindata.forEach(function(data){ %>
+        <div class="card text-center">
+            <a href="/college/<%= data.collegeid %>"> 
+            <div class="card-header">
+          <%=    data.name  %>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title"> <%= data.about %> </h5>
+              <p class="card-text"> <%= data.data %> </p>
+               
+            </div></a>
+            <div class="card-footer text-muted">
+              <%= data.date %>
+            </div>
+            <a href="/college/<%= data.collegeid %>/edit"> <button class=" btn btn-warning">Edit </button> </a>
+          </div>
+ <%   }); %>
+
+</div>
+
+
+<%- include ("includes/footer") %>
