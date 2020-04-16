@@ -6,70 +6,96 @@ var express         = require("express"),
 mongoose.set('useUnifiedTopology', true);
 mongoose.set('useNewUrlParser', true);
 mongoose.connect('mongodb+srv://abhiabhi:abhiabhi@testing-q1asg.gcp.mongodb.net/test?retryWrites=true&w=majority');
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static("public"));
+app.set("view engine","ejs");
     
             // College DataBase
 var collegeSchema = new mongoose.Schema({
+    collegeid : String,
     name: String,
     place: String,
-    phone: Number
+    date: { type: Date, default: Date.now},
+    facts: [ { id: Number, data : String }],
+    estYear: Number,
+    affiliation: String,
+    about: String,
+    data: String,
+    courses: [String],
+    facilities: [String],
+    contact: { phone: String, email: String},
+    location: String,
+    admit: Boolean
 });
+
 var College = mongoose.model("College", collegeSchema);
     
-    College.create({
-        name : "abhi",
-        place : "jiji",
-        phone : 41421442
-    }, function(err,college){
-        if(err)
-        console.log("error");
-        else
-        console.log(college);
-    });
-
-
-
-
-
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(express.static("public"));
-app.use(express.static("assets/images"));
-app.set("view engine","ejs");
-
-
-
-
-
-
-
 
 app.get("/",function(req,res){
     res.render("index");
 });
 
-var array= [
-    { name : "abhi",
-      mark : "10"},
-    { name : "jiji", 
-      mark : "20"}
-];
+app.post("/college",function(req,res){
+    var collegeid = req.body.collegeid;
+    var name = req.body.collegeName;
+    var place = req.body.place;
+    var year = req.body.year;
+    var affiliation = req.body.affiliation;
+    var about = req.body.about;
+    var data = req.body.data;
+    var location = req.body.location;
+    var phone = req.body.phone;
+    var email = req.body.email;
+    var admit = req.body.admit;
 
-app.get("/college",function(req,res){ 
-    
-    res.render("college",{array : array});
+
+    var newEntry = {
+        collegeid : collegeid,
+        name: name,
+        place: place,
+        estYear: year,
+        affiliation: affiliation,
+        about: about,
+        data: data,
+        contact: { phone: phone, email: email},
+        location: location,
+        admit: admit
+    };
+    College.create(newEntry, function (err, newEntry) {
+        if(err)
+        console.log("error"+ err);
+        else
+        res.redirect("/college/" + collegeid);
+      });
+
 });
 
-app.get("/college/new",function(req,res){
+app.get("/college",function(req,res){
+    res.render("index");
+});
+
+
+app.get("/college/:collegeid" , function(req,res){
+
+    College.find( { collegeid : req.params.collegeid }, function (err,maindata) {
+        
+        if(err){
+         console.log(err);
+        }
+        else{
+            res.render("college", {maindata : maindata});
+        }
+    });
+});
+
+app.get("/new/college",function(req,res){
     res.render("newcollege");
 });
 
-app.post("/college",function(req,res){
-    var name = req.body.name;
-    var mark = req.body.mark;
-    var newEntry = { name : name , mark : mark};
-    array.push(newEntry);
 
-    res.redirect("/college");
-});
+
+
+
 
 app.get("*" , function(req,res){
     res.render("notFound");
