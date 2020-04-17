@@ -1,36 +1,97 @@
 var express         = require("express"), 
-    methodOverride  =require("method-override"),
+    methodOverride  = require("method-override"),
     app             = express(),
     bodyParser      = require("body-parser"),
+    passport        = require("passport"),
+    LocalStrategy   = require("passport-local"),
     mongoose        = require('mongoose');
 
 mongoose.set('useUnifiedTopology', true);
 mongoose.set('useNewUrlParser', true);
+mongoose.set('useCreateIndex', true);
 mongoose.connect('mongodb+srv://abhiabhi:abhiabhi@testing-q1asg.gcp.mongodb.net/test?retryWrites=true&w=majority');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 app.use(methodOverride("_method"));
 app.set("view engine","ejs");
+
+
     
-            // College DataBase
-var collegeSchema = new mongoose.Schema({
-    collegeid : String,
-    name: String,
-    place: String,
-    date: { type: Date, default: Date.now},
-    facts: [ { id: Number, data : String }],
-    estYear: Number,
-    affiliation: String,
-    about: String,
-    data: String,
-    courses: [String],
-    facilities: [String],
-    contact: { phone: String, email: String},
-    location: String,
-    admit: Boolean
+// including models of database
+
+var College     = require("./models/college"),
+    User        = require("./models/user");
+
+
+// Passport configuration
+
+app.use(require("express-session")({
+    secret: "Take admission in colleges!",
+    resave: false,
+    saveUninitialized: false
+
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+app.use(function(req,res,next){
+    res.locals.currentUser = req.user;
+    next();
 });
 
-var College = mongoose.model("College", collegeSchema);
+
+// Auth Routes
+
+app.get("/register", function(req,res){
+    res.render("register");
+});
+
+app.get("/login" ,function(req,res){
+    res.render("login");
+});
+app.get("/logout", function(req,res){
+    req.logout();
+    res.redirect("/colleges");
+});
+
+//handle Sign up logic
+app.post("/register",function(req,res){
+    var newUser = new User({ username : req.body.username,
+                             phone : req.body.phone,
+                             name : req.body.name,
+                             admin : '0',
+                             master : '0',
+                             active : '1'     });
+
+    User.register(newUser, req.body.password, function(err,user){
+        if(err){
+        console.log(err);
+        return res.render("register");
+        }
+        passport.authenticate("local")(req, res, function(){
+            res.redirect("/colleges");
+        });
+    });
+});
+
+app.post("/login", passport.authenticate("local",{
+                                                    successRedirect:"/colleges",
+                                                    failureRedirect: "/login"
+                                                    }), function(req,res){
+});
+
+function isLoggedIN(req,res,next){
+    if(req.isAuthenticated()){
+        return next();
+    }
+    else
+    res.redirect("/login");
+}
+
 
 // RESTfull Routes
 
@@ -69,14 +130,13 @@ app.post("/college",function(req,res){
         if(err)
         console.log("error"+ err);
         else
-        console.log(collegeid);
         res.redirect("/college/" + collegeid);
       });
 
 });
 
 app.get("/colleges",function(req,res){
- 
+    
     College.find( {  }, function (err,maindata) {
         
         if(err){
@@ -103,7 +163,7 @@ app.get("/college/:collegeid" , function(req,res){
     });
 });
 
-app.get("/college/:collegeid/edit" , function(req,res){
+app.get("/college/:collegeid/edit", isLoggedIN , function(req,res){
     
     College.find( { collegeid : req.params.collegeid }, function (err,editdata) {
         
@@ -118,7 +178,7 @@ app.get("/college/:collegeid/edit" , function(req,res){
 
 });
 
-app.put("/college/:collegeid",function(req,res){
+app.put("/college/:collegeid",isLoggedIN,function(req,res){
 
     var name = req.body.collegeName;
     var place = req.body.place;
@@ -150,7 +210,6 @@ app.put("/college/:collegeid",function(req,res){
          console.log(err);
         }
         else{
-            console.log(editdata)
             res.redirect("/college/" + req.params.collegeid);
 
         }
@@ -158,14 +217,26 @@ app.put("/college/:collegeid",function(req,res){
 
 });
 
-app.get("/new/college",function(req,res){
-    res.render("newcollege");
+app.delete("/college/:collegeid",isLoggedIN,function(req,res){
+    
+    College.deleteOne( { collegeid : req.params.collegeid }, function (err) {
+        
+        if(err){
+         console.log(err);
+        }
+        else{
+
+            res.redirect("/colleges");
+
+        }
+    });
+
+
 });
 
-
-
-
-
+app.get("/new/college",isLoggedIN,function(req,res){
+    res.render("newcollege");
+});
 
 app.get("*" , function(req,res){
     res.render("notFound");

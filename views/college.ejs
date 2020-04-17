@@ -1,10 +1,27 @@
-
+<%- include ("includes/header") %>
 
 <div class="row">
     <div class="col">
     <div class="container" >
         
-        <%= maindata %>
+        <% maindata.forEach(function(data){ %>
+            <div class="card text-center">
+                <div class="card-header">
+                  <%= data.name %>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title"><%= data.about %></h5>
+                  <p class="card-text"><%= data.data %></p>
+                  <form action="/college/<%= data.collegeid %>?_method=DELETE" method="post">
+                  <button class="btn btn-primary">Delete</button>
+                </form>
+                </div>
+                <div class="card-footer text-muted">
+                    <%= data.date %>
+                </div>
+              </div>
+     <%   }); %>
+
     </div>
 </div>
 </div>

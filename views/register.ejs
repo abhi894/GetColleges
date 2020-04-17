@@ -1,0 +1,31 @@
+<%- include ("includes/header") %>
+
+<div class="container">
+
+<h1> Signup</h1>
+
+    <form action="/register" method="post">
+        <div class="form-group">
+            <label for="name">Name : </label>
+            <input type="text" name="name" class="form-control" id="name" >
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email : </label>
+            <input type="email" name="username" class="form-control" id="email" >
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone : </label>
+            <input type="number" name="phone" class="form-control" id="phone" min="999999999" max="10000000000" >
+            <small id="passwordHelpBlock" class="form-text text-muted">
+                Enter 10 Digit Indian Number Only
+             </small>
+        </div>
+        <div class="form-group">
+            <label for="pw">Password : </label>
+            <input type="password" name="password" class="form-control" id="pw" >
+        </div>
+        <button class="btn btn-primary"> SUBMIT </button>
+    </form>
+
+</div>
