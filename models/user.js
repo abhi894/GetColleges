@@ -19,13 +19,6 @@ var UserSchema = new mongoose.Schema({
             percentage : Number,
             Status: Boolean
         }],
-        referral : [{
-            name : String,
-            status : Boolean
-        }],
-        admitted : Boolean,
-        master : Boolean,
-        refby : String,
         photo : String,
         active : Boolean
     });

@@ -1,7 +1,7 @@
-<%- include ("includes/header") %>
+<%- include ("./includes/header") %>
 
 <div class="container" >
-    <%       editdata.forEach(function(editdata){ %>
+
     <form action="/college/<%= editdata.collegeid %>?_method=PUT" method="POST">
         <div class="row">
             
@@ -94,7 +94,7 @@
        
         </div>
     </form>
-    <% });  %>
+
 </div>
 
 
