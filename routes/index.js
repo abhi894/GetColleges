@@ -10,6 +10,11 @@ router.get("/",function(req,res){
     res.render("index");
 });
 
+router.get("/about",function(req,res){
+    res.render("about");
+});
+
+
 
 // Auth Routes
 
@@ -36,8 +41,8 @@ router.post("/register",function(req,res){
 
     User.register(newUser, req.body.password, function(err,user){
         if(err){
-        req.flash("msg", err.message);
-        return res.render("register");
+ 
+        return res.render("register",{ msg : err.message});
         }
         else{
         passport.authenticate("local")(req, res, function(){
@@ -53,7 +58,34 @@ router.post("/login", passport.authenticate("local",{
                                                     }), function(req,res){
 });
 
+router.get("/profile",middleware.isLoggedIN,function(req,res){
+     res.render("profile");
 
+});
+
+
+router.get("/editprofile",middleware.isLoggedIN,function(req,res){
+    res.render("editprofile");
+
+});
+
+router.post("/profile/:username",middleware.isLoggedIN,function(req,res){
+    var editUser = {         username : req.body.username,
+                             phone : req.body.phone,
+                             name : req.body.name }
+
+                             User.updateOne( { username : req.params.username },editUser, function (err,editdata) {
+        
+                                if(err){
+                                 console.log(err);
+                                }
+                                else{
+                                    req.flash("msg", " Sucessfully Updated!! ")
+                                    res.redirect("/profile");
+                        
+                                }
+                            });
+});
 
 router.get("*" , function(req,res){
     res.render("notFound");

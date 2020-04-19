@@ -1,0 +1,45 @@
+<%- include ("./includes/header") %>
+
+<div class="container" >
+
+
+<h1> <%= currentUser.name %> </h1>
+
+<% if(currentUser.name != ""){ %>
+    <div class="row">
+        <div class="col-sm">
+            Name :
+        </div>
+        <div class="col-sm">
+        <%= currentUser.name  %> 
+        </div>
+      </div>
+      <% } %>
+
+      <% if(currentUser.username != ""){ %>
+        <div class="row">
+            <div class="col-sm">
+                Email :
+            </div>
+            <div class="col-sm">
+            <%= currentUser.username  %> 
+            </div>
+          </div>
+          <% } %>
+
+          <% if(currentUser.phone != ""){ %>
+            <div class="row">
+                <div class="col-sm">
+                    Phone :
+                </div>
+                <div class="col-sm">
+                 <%= currentUser.phone  %> 
+                </div>
+              </div>
+              <% } %>
+
+<a href="/editprofile"><button class=" btn btn-primary ">Edit  Profile</button></a>
+
+</div>
+
+<%- include ("./includes/footer") %>

@@ -2,28 +2,24 @@
 
 <div class="container">
 
-<h1> Signup</h1>
+<h1> Edit <%= currentUser.name %> </h1>
 
-    <form action="/register" method="post">
+    <form action="/profile/<%= currentUser.username %>"  method="post">
         <div class="form-group">
             <label for="name">Name : </label>
-            <input type="text" name="name" class="form-control" id="name" required >
+            <input type="text" name="name" class="form-control" id="name" value="<%=currentUser.name %>" required >
         </div>
 
         <div class="form-group">
             <label for="email">Email : </label>
-            <input type="email" name="username" class="form-control" id="email" required >
+            <input type="email" name="username" class="form-control" id="email" value="<%=currentUser.username %>" required >
         </div>
         <div class="form-group">
             <label for="phone">Phone : </label>
-            <input type="number" name="phone" class="form-control" id="phone" min="999999999" max="10000000000" required >
+            <input type="number" name="phone" class="form-control" id="phone" min="999999999" max="10000000000" value="<%=currentUser.phone %>"  required >
             <small id="passwordHelpBlock" class="form-text text-muted">
                 Enter 10 Digit Indian Number Only
              </small>
-        </div>
-        <div class="form-group">
-            <label for="pw">Password : </label>
-            <input type="password" name="password" class="form-control" id="pw" required >
         </div>
         <button class="btn btn-primary"> SUBMIT </button>
     </form>

@@ -7,7 +7,8 @@ var UserSchema = new mongoose.Schema({
         name : String,
         phone : Number,
         date: { type: Date, default: Date.now},
-        admin : Boolean,
+        admin : { type: Boolean, default:false },
+        master :{ type: Boolean, default:false },
         state : String,
         stream : String,
         qualification : [ {

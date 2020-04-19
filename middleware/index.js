@@ -4,7 +4,7 @@ var middlewareObj = {};
 
 middlewareObj.isLoggedIN = function (req,res,next){
     if(req.isAuthenticated()){
-        return next();
+         next();
     }
     else{
     req.flash("msg", " You must Login first!! ")

@@ -158,4 +158,5 @@ router.get("/new/college",middleware.adminUser,function(req,res){
 
 
 
+
 module.exports = router;
