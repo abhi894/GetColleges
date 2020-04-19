@@ -12,7 +12,7 @@ mongoose.set('useNewUrlParser', true);
 mongoose.set('useCreateIndex', true);
 mongoose.connect('mongodb+srv://abhiabhi:abhiabhi@testing-q1asg.gcp.mongodb.net/test?retryWrites=true&w=majority');
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(express.static("public"));
+app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
 app.set("view engine","ejs");
 app.use(flash());
@@ -46,6 +46,7 @@ passport.deserializeUser(User.deserializeUser());
 app.use(function(req,res,next){
     res.locals.currentUser = req.user;
     res.locals.msg = req.flash("msg");
+    res.locals.error = req.flash("error");
     next();
 });
 

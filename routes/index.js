@@ -52,11 +52,16 @@ router.post("/register",function(req,res){
     });
 });
 
-router.post("/login", passport.authenticate("local",{
-                                                    successRedirect:"/colleges",
-                                                    failureRedirect: "/login"
-                                                    }), function(req,res){
-});
+router.post("/login",function (req, res, next) {
+                    passport.authenticate("local",
+                    {
+                        successRedirect: "/colleges",
+                        failureRedirect: "/login",
+                        failureFlash: true
+                    })(req, res);
+                });
+
+
 
 router.get("/profile",middleware.isLoggedIN,function(req,res){
      res.render("profile");
