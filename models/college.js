@@ -12,6 +12,7 @@ var mongoose = require("mongoose");
         affiliation: String,
         about: String,
         data: String,
+        image: String,
         courses: [{ level: String,
                     course : String,
                     eligibility: String,
@@ -24,7 +25,6 @@ var mongoose = require("mongoose");
         location: String,
         admit: Boolean,
         placement : [{ year: String, average : String , highest: String, percentage: Number }],
-        photo: String,
         gallery: [String]
     });
     

@@ -5,6 +5,29 @@ var passport = require("passport");
 var User = require("../models/user");
 var middleware = require("../middleware");
 
+var multer = require('multer');
+var storage = multer.diskStorage({
+  filename: function(req, file, callback) {
+    callback(null, Date.now() + file.originalname);
+  }
+});
+var imageFilter = function (req, file, cb) {
+    // accept image files only
+    if (!file.originalname.match(/\.(jpg|jpeg|png)$/i)) {
+        return cb(new Error('Only image files are allowed!'), false);
+    }
+    cb(null, true);
+};
+var upload = multer({ storage: storage, fileFilter: imageFilter})
+
+var cloudinary = require('cloudinary');
+cloudinary.config({ 
+  cloud_name: 'abhi894', 
+  api_key: '868168654876154', 
+  api_secret: 'BSAkAN8Yo74wvuxghiuMG0hcp1A'
+});
+
+
 
 router.get("/",function(req,res){
     res.render("index");
@@ -74,10 +97,13 @@ router.get("/editprofile",middleware.isLoggedIN,function(req,res){
 
 });
 
-router.post("/profile/:username",middleware.isLoggedIN,function(req,res){
+router.post("/profile/:username",middleware.isLoggedIN,upload.single('image'),function(req,res){
+
+
     var editUser = {         username : req.body.username,
                              phone : req.body.phone,
-                             name : req.body.name }
+                             name : req.body.name,
+                            }
 
                              User.updateOne( { username : req.params.username },editUser, function (err,editdata) {
         
@@ -90,6 +116,7 @@ router.post("/profile/:username",middleware.isLoggedIN,function(req,res){
                         
                                 }
                             });
+                       
 });
 
 router.get("*" , function(req,res){

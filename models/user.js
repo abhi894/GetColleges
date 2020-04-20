@@ -20,7 +20,7 @@ var UserSchema = new mongoose.Schema({
             percentage : Number,
             Status: Boolean
         }],
-        photo : String,
+        image : String,
         active : Boolean
     });
 

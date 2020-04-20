@@ -4,44 +4,70 @@ var College = require("../models/college");
 var User = require("../models/user");
 var middleware = require("../middleware");
 
-
-router.post("/college",function(req,res){
-
-    var collegeid = req.body.collegeid;
-    var name = req.body.collegeName;
-    var place = req.body.place;
-    var year = req.body.year;
-    var affiliation = req.body.affiliation;
-    var about = req.body.about;
-    var data = req.body.data;
-    var location = req.body.location;
-    var phone = req.body.phone;
-    var email = req.body.email;
-    var admit = req.body.admit;
-
-
-    var newEntry = {
-        collegeid : collegeid,
-        name: name,
-        place: place,
-        estYear: year,
-        affiliation: affiliation,
-        about: about,
-        data: data,
-        contact: { phone: phone, email: email},
-        location: location,
-        admit: admit
+var multer = require('multer');
+var storage = multer.diskStorage({
+  filename: function(req, file, callback) {
+    callback(null, Date.now() + file.originalname);
+  }
+});
+var imageFilter = function (req, file, cb) {
+    // accept image files only
+    if (!file.originalname.match(/\.(jpg|jpeg|png)$/i)) {
+        return cb(new Error('Only image files are allowed!'), false);
     }
-    College.create(newEntry, function (err, newEntry) {
-        if(err)
-        console.log("error"+ err);
-        else{
-            
-            res.redirect("/college/" + collegeid);
+    cb(null, true);
+};
+var upload = multer({ storage: storage, fileFilter: imageFilter})
+
+var cloudinary = require('cloudinary');
+cloudinary.config({ 
+  cloud_name: 'abhi894', 
+  api_key: '868168654876154', 
+  api_secret: 'BSAkAN8Yo74wvuxghiuMG0hcp1A'
+});
+
+router.post("/college",middleware.adminUser, upload.single('image'),function(req,res){
+
+    cloudinary.uploader.upload(req.file.path, function(result) {
+
+        var image = result.secure_url;
+        var collegeid = req.body.collegeid;
+        var name = req.body.collegeName;
+        var place = req.body.place;
+        var year = req.body.year;
+        var affiliation = req.body.affiliation;
+        var about = req.body.about;
+        var data = req.body.data;
+        var location = req.body.location;
+        var phone = req.body.phone;
+        var email = req.body.email;
+        var admit = req.body.admit;
+    
+
+        var newEntry = {
+            collegeid : collegeid,
+            name: name,
+            place: place,
+            image: image,
+            estYear: year,
+            affiliation: affiliation,
+            about: about,
+            data: data,
+            contact: { phone: phone, email: email},
+            location: location,
+            admit: admit
         }
         
-      });
-
+        College.create(newEntry, function (err, newEntry) {
+            if(err)
+            console.log("error"+ err);
+            else{
+                
+                res.redirect("/college/" + collegeid);
+            }
+            
+        });
+    });
 });
 
 router.get("/colleges",function(req,res){
@@ -94,8 +120,10 @@ router.get("/college/:collegeid/edit",middleware.adminUser, function(req,res){
 
 });
 
-router.put("/college/:collegeid",middleware.adminUser,function(req,res){
+router.put("/college/:collegeid",middleware.adminUser,upload.single('image'),function(req,res){
 
+   
+    
     var name = req.body.collegeName;
     var place = req.body.place;
     var year = req.body.year;

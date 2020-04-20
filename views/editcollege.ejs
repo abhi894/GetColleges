@@ -2,7 +2,7 @@
 
 <div class="container" >
 
-    <form action="/college/<%= editdata.collegeid %>?_method=PUT" method="POST">
+    <form action="/college/<%= editdata.collegeid %>?_method=PUT" method="POST"  enctype="multipart/form-data">
         <div class="row">
             
             <div class="col"></div>
@@ -19,7 +19,6 @@
                        Enter the full name of the college.
                       </small>
                   </div>
-
 
                   <div class="form-group">
                     <label for="place">Place : </label>
