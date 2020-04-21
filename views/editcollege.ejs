@@ -29,7 +29,7 @@
                   </div>
                   <div class="form-group">
                     <label for="year">Year Established : </label>
-                    <input type="number" name="year" class="form-control" id="year" min="1990" max="2021" value="<%= editdata.estYear %>">
+                    <input type="number" name="year" class="form-control" id="year" min="1900" max="2021" value="<%= editdata.estYear %>">
                   </div>
                   <div class="form-group">
                     <label for="affiliation">Afiliation : </label>
@@ -62,7 +62,7 @@
                   
                   <div class="form-group">
                     <label for="phone">Contact No : </label>
-                    <input type="number" name="phone" class="form-control" id="phone" min="999999999" max="10000000000" value="<%= editdata.contact.phone %>" >
+                    <input type="number" name="phone" class="form-control" id="phone"  value="<%= editdata.contact.phone %>" >
                     <small id="passwordHelpBlock" class="form-text text-muted">
                         Enter 10 Digit Indian Number Only
                      </small>
@@ -95,6 +95,9 @@
     </form>
 
 </div>
+
+
+
 
 
 <%- include ("includes/footer") %>

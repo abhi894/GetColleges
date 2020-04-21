@@ -2,34 +2,93 @@
 
 <div class="container">
     
-    <h1>Colleges List 
-      </h1>
+    <h1> <center> Colleges </center> </h1>
     
-  <%  maindata.forEach(function(data){ %>
-        <div class="card text-center">
-            <a href="/college/<%= data.collegeid %>"> 
-            <div class="card-header">
-          <%=    data.name  %>
-            </div>
-            <div class="card-body">
-              <h5 class="card-title"> <%= data.about %> </h5>
-              <p class="card-text"> <%= data.data %> </p>
-               
-            </div></a>
-            <div class="card-footer text-muted">
-              <%= data.date %>
+    <%  maindata.forEach(function(data){ %>
 
-            </div>
-            <% 
-            if( currentUser && currentUser.admin == true ){ %>
-            <a href="/college/<%= data.collegeid %>/edit"> <button class=" btn btn-warning">Edit </button> </a>
-            <form action="/college/<%= data.collegeid %>?_method=DELETE" method="post">
-              <button class="btn btn-primary">Delete</button>
-            </form>
-            <% } %>
+   <div class="card colleges-card">
+       <div class="row"> 
+         <div class="col-md-auto">
+          <img src="https://www.latestlaws.com/media/2019/10/1571231326.jpg" class="rounded float-left" height="100px" width="100px">
+         </div>
+         <div class="col-md-auto">
+            <h5 class="card-title"><%= data.name %></h5>
+            <h6 class="card-subtitle  mb-2 text-muted colleges-facts"><i class="fas fa-map-marker-alt"></i> <%= data.place %></h6>
+            <h6 class="facts"> <%= data.facts[0] %>  |  <%= data.facts[1] %>  |  <%= data.facts[2] %>  </h6>
           </div>
+        </div>
         
- <%   }); %>
+        <div class="row colleges-sec-data">
+          <div class="col-md-4">
+            Affiliation :  <%= data.affiliation.slice(0,35) %>...
+          </div>
+          <div class="col-md 4">
+            Established In : <%= data.estYear %>
+          </div>
+          <div class="col-md 4">
+            Domin : <%= data.type %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md">
+            <%= data.about.slice(0,200) %>...
+          </div>
+          <div class="col-md-1"></div>
+        </div>
+        <% if(data.type == "eng") { %>
+        <div class="row colleges-placement">
+          <div class="col-md-4">
+            Year : <%= data.placement.year %>
+          </div>
+          <div class="col-md-4">
+            Average : <%= data.placement.average %>
+          </div>
+          <div class="col-md-4">
+            Highest : <%= data.placement.highest %>
+          </div>
+        </div>
+        <% }%>
+
+        <%if( currentUser && currentUser.admin == true ){ %>
+
+          <div class="row admin-colleges">
+
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+            <a href="/college/<%=data.collegeid%>/edit"><button class="btn btn-primary">Edit</button></a>
+
+            <form action="/college/<%= data.collegeid %>?_method=DELETE" class="form-del" method="post">
+              <button class="btn btn-danger float-right">Delete</button>
+            </form>
+          </div>
+            <div class="col-md-2">   </div>
+          </div>
+          
+
+          <% } %>
+
+          <div class="row">
+      
+            <div class="col-md-2"></div>
+
+            <div class="col-md-8">
+              <a href="/college/<%=data.collegeid%>"> <button class="btn btn-primary "> View Details</button></a>
+              <a href="#"> <button class="btn btn-success float-right"> Apply Now </button></a>
+            </div>
+
+          </div>
+          <div class="col-md-8"></div>
+
+          <!-- <div class="col-md-2">
+            <a href="/college/<%=data.collegeid%>><button class="btn btn-primary">Apply</button></a>
+          </div> -->
+
+
+    </div>
+
+          
+  <%   }); %>
 
 </div>
 

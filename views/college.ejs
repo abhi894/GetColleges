@@ -11,9 +11,12 @@
       <div class="card-body">
         <h5 class="card-title"><%= maindata.about %></h5>
         <p class="card-text"><%= maindata.data %></p>
+      <%if( currentUser && currentUser.admin == true ){ %>
         <form action="/college/<%= maindata.collegeid %>?_method=DELETE" method="post">
         <button class="btn btn-primary">Delete</button>
       </form>
+      <a href="/college/<%= maindata.collegeid%>/addcourses"><button class="btn btn-primary">Add Courses</button></a>
+      <% } %>
       </div>
       <div class="card-footer text-muted">
           <%= maindata.date %>

@@ -156,3 +156,51 @@ h2.blw{
     font-family: 'Times New Roman', Times, serif;
 
 }
+
+/* NavBar */
+
+.navbar-brand {
+    font-size: 1.5em;
+    font-family: 'Times New Roman', Times, serif ;
+    color: #fff;
+    letter-spacing: 3px;
+}
+
+/* College list */
+
+.colleges-card {
+    margin: 1rem;
+    padding: 1rem;
+}
+
+.facts {
+    margin: 1rem;
+    font-size: .9rem;
+    font-style: oblique;
+    color: #b27e7e;
+
+}
+
+.colleges-sec-data{
+    margin: 1rem;
+    font-size: .8rem;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.colleges-placement{
+    text-align: center;
+    margin: 1rem;
+    font-size: .9rem;
+}
+
+.admin-colleges {
+    margin: 1rem;
+    align-items: center;
+}
+
+.form-del{
+    display: inline;
+}
