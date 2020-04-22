@@ -1,4 +1,8 @@
 
+html,body{
+    height: 100%;
+    overflow-x: hidden;
+}
 
 /* Slider One */
 
@@ -40,6 +44,7 @@ opacity: 1;
     position: absolute;
     bottom: 0;
     right: 50%;
+    
 }
 
 .slick-dots li{
@@ -203,4 +208,61 @@ h2.blw{
 
 .form-del{
     display: inline;
+}
+
+.collegecover {
+    padding: 1rem;
+    margin: 1rem;
+}
+
+.college-image{
+    border: 4px solid;
+    border-radius: 100%;
+    border-color: #007bff;
+    height: 130px;
+    width: 130px;
+
+} 
+
+.college-title {
+    font-size: 2rem;
+    margin-bottom: .75rem;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.mainimage{
+    background-image: url("../images/cover.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    background-position: center;
+    overflow: hidden;
+   
+}
+
+.main-container{
+    width: 100%;
+    height: 100%;
+    border: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+    
+
+
+.mainhead {
+    text-align: center;
+    padding: 1rem;
+}
+
+.mainpagebtn{
+    border-radius: 5em;
+    border: 3px solid #007bff;
+    background-color: rgb(219, 227, 230);
+}
+
+.mainpage-text{
+    color: #007bff;
+    text-shadow: 1px 1px #8584b0;
 }

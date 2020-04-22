@@ -9,7 +9,7 @@
    <div class="card colleges-card">
        <div class="row"> 
          <div class="col-md-auto">
-          <img src="https://www.latestlaws.com/media/2019/10/1571231326.jpg" class="rounded float-left" height="100px" width="100px">
+          <img src="<%= data.image %>" class="rounded float-left" height="100px" width="100px">
          </div>
          <div class="col-md-auto">
             <h5 class="card-title"><%= data.name %></h5>
@@ -20,7 +20,7 @@
         
         <div class="row colleges-sec-data">
           <div class="col-md-4">
-            Affiliation :  <%= data.affiliation.slice(0,35) %>...
+            Affiliation :  <%= data.affiliation.slice(0,40) %>...
           </div>
           <div class="col-md 4">
             Established In : <%= data.estYear %>
@@ -76,9 +76,9 @@
               <a href="/college/<%=data.collegeid%>"> <button class="btn btn-primary "> View Details</button></a>
               <a href="#"> <button class="btn btn-success float-right"> Apply Now </button></a>
             </div>
-
+            <div class="col-md-2"></div>
           </div>
-          <div class="col-md-8"></div>
+          
 
           <!-- <div class="col-md-2">
             <a href="/college/<%=data.collegeid%>><button class="btn btn-primary">Apply</button></a>

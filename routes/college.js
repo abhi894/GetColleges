@@ -71,7 +71,7 @@ router.post("/college", upload.single('image'),function(req,res){
             cover: cover
 
         }
-        console.log(newEntry)
+        
         College.create(newEntry, function (err, newEntry) {
             if(err)
             console.log("error"+ err);

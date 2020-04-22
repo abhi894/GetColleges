@@ -3,8 +3,95 @@
 
 <div class="container" >
         
+  <div class="collegecover">
+    <div class="row">
+      <div class="col-sm-1"></div>
+  <div class="col-sm-2 ">
+   <img src="<%= maindata.image %>" class=" college-image" alt="Responsive image"> 
+  </div>
+  <div class="col-sm-auto ">
+   <div class="card-title college-title"><%= maindata.name %> </div>
+   <h6 class="card-subtitle  mb-2 text-muted colleges-facts"><i class="fas fa-map-marker-alt"></i> <%= maindata.place %> <div class="float-right"><i class="fas fa-university"></i> Established In :  <%= maindata.estYear %>  </div> </h6>
+   <h6 class="facts"> <%= maindata.facts[0] %>  |  <%= maindata.facts[1] %>  |  <%= maindata.facts[2] %>  </h6>
+   <h6 class="card-subtitle  mb-2 text-muted colleges-facts"> <i class="fas fa-award"></i>  Affiliated to : <%= maindata.affiliation %> <div class="float-right "><i class="fas fa-graduation-cap"></i> Type :  <%= maindata.type %>  </div> </h6>
+  </div>
+  </div>
+  <hr>
+  </div>
+
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10" style="text-align: center;">
+      <%= maindata.about %>
+    </div>
+    <div class="col-md-1"></div>
+  </div>
+    <br>
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10" style="text-align: center;">
+      <%= maindata.data %>
+    </div>
+    <div class="col-md-1"></div>
+  </div>
+
+  <div class="row" style="margin: 10px;">
+    <div class="col-md-2"></div>
+    <div class="col-md-8" style="align-items: center;">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Year</th>
+          <th scope="col">Average</th>
+          <th scope="col">Highest</th>
+          <th scope="col">Percentage</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% maindata.placement.forEach(function(data){ %>
+        <tr>
+          <th scope="row"><%= data.year %> </th>
+          <td><%= data.average %></td>
+          <td><%= data.highest %></td>
+          <td><%= data.percentage %></td>
+        </tr>
+     <% }) %>
+      </tbody>
+    </table>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+
+  <%if( currentUser && currentUser.admin == true ){ %>
+
+    <div class="row admin-colleges">
+
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+      <a href="/college/<%=maindata.collegeid%>/edit"><button class="btn btn-primary">Edit</button></a>
+
+      <form action="/college/<%= maindata.collegeid %>?_method=DELETE" class="form-del" method="post">
+        <button class="btn btn-danger float-right">Delete</button>
+      </form>
+    </div>
+      <div class="col-md-2">   </div>
+    </div>
     
-  <div class="card text-center">
+
+    <% } %>
+
+    <div class="row" style="margin: 2rem;">
+
+      <div class="col-md-2"></div>
+
+      <div class="col-md-8">
+        
+       <center> <a href="#"> <button class="btn btn-success "> Apply Now </button></a></center>
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+
+  <!-- <div class="card text-center">
       <div class="card-header">
         <%= maindata.name %>
       </div>
@@ -21,7 +108,7 @@
       <div class="card-footer text-muted">
           <%= maindata.date %>
       </div>
-    </div>
+    </div> -->
 
 
 </div>

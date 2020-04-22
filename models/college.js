@@ -17,8 +17,9 @@ var mongoose = require("mongoose");
         contact: { phone: String, email: String},
         location: String,
         admit: Boolean,
-        placement : [{ year: String, average : String , highest: String, percentage: Number }],
+        placement : [{ year: String, average : String , highest: String, percentage: String }],
         gallery: [String]
+        
     });
     
     module.exports = mongoose.model("College", collegeSchema);
