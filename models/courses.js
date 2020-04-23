@@ -2,7 +2,7 @@ var mongoose = require("mongoose");
 
     // College DataBase
     var coursesSchema = new mongoose.Schema({
-        category : String,
+        name : String,
         college : String,
         level : String,
         eligibility : String,

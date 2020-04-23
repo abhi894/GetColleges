@@ -2,7 +2,11 @@
 
 <div class="container">
 
-    <h1> Enter the Course details for <%= collegeid %></h1>
+   <center> <h2 style="margin: 3rem;"> Enter the Course details for <%= collegeid %></h2> </center>
+
+   <div class="row" style="margin-bottom: 5rem;" >
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
 
         <div class="form-group">
     <form action="/courses/<%= collegeid%>" method="POST">
@@ -14,26 +18,34 @@
         <option value="oth">Others</option>
       </select>
     </div>
+
+    <div class="form-group">
+      <label for="name">Name : </label>
+      <input type="text" name="name" class="form-control" id="name" required>
+      <small id="passwordHelpBlock" class="form-text text-muted">
+         Enter Name of the course 
+        </small>
+    </div>
   
       <div class="form-group">
       <label class="form-check-label" for="level"> Level &nbsp; </label>
       <select id="level" class="form-control" name="level">
-        <option value="ug">U.G.</option>
-        <option value="pg">P.G.</option>
+        <option value="U.G.">U.G.</option>
+        <option value="P.G.">P.G.</option>
         <option value="oth">Others</option>
       </select>
     </div>
 
       <div class="form-group">
         <label for="eligibility">Eligibility : </label>
-        <input type="text" name="eligibility" class="form-control" id="eligibility" >
+        <input type="text" name="eligibility" class="form-control" id="eligibility" required>
         <small id="passwordHelpBlock" class="form-text text-muted">
            Enter Eligibility Criteria
           </small>
       </div>
       <div class="form-group">
         <label for="term">Term : </label>
-        <input type="text" name="term" class="form-control" id="term" >
+        <input type="text" name="term" class="form-control" id="term" required>
         <small id="passwordHelpBlock" class="form-text text-muted">
            Enter the term, Specify weather Year of Month
           </small>
@@ -45,7 +57,7 @@
             <div class="col-sm">
       <div class="form-group">
         <label for="quota1">Quota : </label>
-        <input type="text" name="quota1" class="form-control" id="quota1" >
+        <input type="text" name="quota1" class="form-control" id="quota1" required>
         <small id="passwordHelpBlock" class="form-text text-muted">
            Enter the Quota
           </small>
@@ -54,7 +66,7 @@
       <div class="col-sm">
       <div class="form-group">
         <label for="amt1">Amount : </label>
-        <input type="text" name="amt1" class="form-control" id="amt1" >
+        <input type="text" name="amt1" class="form-control" id="amt1" required>
         <small id="passwordHelpBlock" class="form-text text-muted">
            Enter the Amount.
           </small>
@@ -63,7 +75,7 @@
     <div class="col-sm">
       <div class="form-group">
         <label for="hst1">For Hostel : </label>
-        <input type="text" name="hst1" class="form-control" id="hst1" >
+        <input type="text" name="hst1" class="form-control" id="hst1"required >
         <small id="passwordHelpBlock" class="form-text text-muted">
            Enter the Amount for hostel
           </small>
@@ -72,9 +84,9 @@
     <div class="col-sm">
       <div class="form-group">
         <label for="tm1">Term of fee : </label>
-        <input type="text" name="tm1" class="form-control" id="tm1" >
+        <input type="text" name="tm1" class="form-control" id="tm1" required >
         <small id="passwordHelpBlock" class="form-text text-muted">
-           Specify if its yearly, per semsster or for full term.
+           Specify if its yearly, per semester or for full term.
           </small>
       </div>
       </div>
@@ -124,6 +136,9 @@
 
 
     </form>
+    </div>
+    <div class="col-md-3"></div>
+    </div>
   
   </div>
 

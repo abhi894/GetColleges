@@ -2,7 +2,7 @@
 
 <div class="container" >
 
-    <form action="/college/<%= editdata.collegeid %>?_method=PUT" method="POST"  enctype="multipart/form-data">
+    <form action="/college/<%= editdata.collegeid %>?_method=PUT" method="POST" >
         <div class="row">
             
             <div class="col"></div>
@@ -31,6 +31,13 @@
                     <label for="year">Year Established : </label>
                     <input type="number" name="year" class="form-control" id="year" min="1900" max="2021" value="<%= editdata.estYear %>">
                   </div>
+                  <label class="form-check-label" for="cat"> Category &nbsp; </label>
+      <select id="cat" class="form-control" name="category">
+        <option value="Engineering">Engineering</option>
+        <option value="Management">Management</option>
+        <option value="Medical">Medical</option>
+        <option value="Not Specified">Others</option>
+      </select>
                   <div class="form-group">
                     <label for="affiliation">Afiliation : </label>
                     <input type="text" name="affiliation" class="form-control" id="affiliation" value="<%= editdata.affiliation %>">
@@ -56,7 +63,7 @@
                     <label for="location">Location : </label>
                     <input type="text" name="location" class="form-control" id="location" value="<%= editdata.location %>">
                     <small id="passwordHelpBlock" class="form-text text-muted">
-                        For Coordinates, To be left blank
+                        Copy and paste the Iframe
                      </small>
                   </div>
                   
@@ -69,6 +76,80 @@
                     <label for="email">Email : </label>
                     <input type="email" name="email" class="form-control" id="email" value="<%= editdata.contact.email %>">
                   </div>
+
+                  Facts : 
+
+                  <div class="row">
+     
+                    <div class="col-md-6">
+                  <div class="form-group">
+
+                    <input type="text" name="fact1" class="form-control facts"  required>
+                  </div>
+                  </div>
+                  <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="text" name="fact2" class="form-control facts"  required>
+                  </div>
+                  </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <input type="text" name="fact3" class="form-control facts"  required>
+                      </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <input type="text" name="fact4" class="form-control facts"  required>
+                        </div>
+                        </div>
+                  </div>
+
+                  Placement : 
+                  <br>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <label for="p1">Year : </label>
+                    <input type="text" name="p1name" class="form-control p1"  required>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="p1">Average : </label>
+                    <input type="text" name="p1avg" class="form-control p1"  required>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="p1">Highest : </label>
+                    <input type="text" name="p1high" class="form-control p1"  required>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="p1">Percentage : </label>
+                    <input type="text" name="p1per" class="form-control p1"  required>
+                    </div>
+
+                  </div>
+
+                  Placement : 
+                  <br>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <label for="p1">Year : </label>
+                    <input type="text" name="p2name" class="form-control p1" >
+                    </div>
+                    <div class="col-md-3">
+                      <label for="p1">Average : </label>
+                    <input type="text" name="p2avg" class="form-control p1" >
+                    </div>
+                    <div class="col-md-3">
+                      <label for="p1">Highest : </label>
+                    <input type="text" name="p2high" class="form-control p1" >
+                    </div>
+                    <div class="col-md-3">
+                      <label for="p1">Percentage : </label>
+                    <input type="text" name="p2per" class="form-control p1" >
+                    </div>
+
+                  </div>
+
 
                   <div class="form-group">
                       <h3 class="alert">Can We give admission?</h3>

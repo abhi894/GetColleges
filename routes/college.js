@@ -48,7 +48,7 @@ router.post("/college", upload.single('image'),function(req,res){
         var fact2 = req.body.fact2;
         var fact3 = req.body.fact3;
         var fact4 = req.body.fact4;
-        var cover = req.body.cover;
+        
 
         var placement1= { year: req.body.p1name, average : req.body.p1avg , highest: req.body.p1high, percentage: req.body.p1per }
         var placement2= { year: req.body.p2name, average : req.body.p2avg , highest: req.body.p2high, percentage: req.body.p2per }
@@ -66,9 +66,9 @@ router.post("/college", upload.single('image'),function(req,res){
             location: location,
             admit: admit,
             type : type,
-            fact: [fact1,fact2,fact3,fact4],
-            placement: [placement1,placement2],
-            cover: cover
+            factS: [fact1,fact2,fact3,fact4],
+            placement: [placement1,placement2]
+            
 
         }
         
@@ -98,19 +98,32 @@ router.get("/colleges",function(req,res){
 
 });
 
-router.get("/college/:collegeid" , function(req,res){
-
-    College.findOne( { collegeid : req.params.collegeid }, function (err,maindata) {
+router.get("/colleges/:type",function(req,res){
+    College.find( { type : req.params.type }, function (err,maindata) {
         
         if(err){
          console.log(err);
         }
         else{
-            if(maindata)
-            res.render("college", {maindata : maindata});
-            else
-            res.render("notFound");
+            res.render("colleges", {maindata : maindata});
         }
+    });
+});
+
+router.get("/college/:collegeid" , function(req,res){
+
+    College.findOne( { collegeid : req.params.collegeid }, function (err,maindata) {
+        Course.find( { college : req.params.collegeid}, function(err,courses ){
+            if(err){
+            console.log(err);
+            }
+            else{
+                if(maindata)
+                res.render("college", {maindata : maindata, courses : courses});
+                else
+                res.render("notFound");
+            }
+        });
     });
 });
 
@@ -139,16 +152,36 @@ router.get("/new/courses/:collegeid",function(req,res){
 
 });
 
+router.get("/college/:collegeid/:courseid",function(req,res){
+
+    College.findOne( { collegeid : req.params.collegeid }, function (err,maindata) {
+        Course.findOne( { _id : req.params.courseid}, function(err,course ){
+            if(err){
+            console.log(err);
+            }
+            else{
+                if(course)
+                res.render("course", {college : maindata, course : course});
+                else
+                res.render("notFound");
+            }
+        });
+    });
+
+});
+
 router.post("/courses/:collegeid",function(req,res){
 
     
 
         
         var collegeid = req.params.collegeid;
+        var name = req.body.name;
         var category = req.body.category;
         var level = req.body.level;
         var eligibility = req.body.eligibility;
         var term = req.body.term;
+
 
 
         var fee1 = { quota : req.body.quota1,
@@ -167,6 +200,7 @@ router.post("/courses/:collegeid",function(req,res){
         var newEntry = {
             category : category,
             college : collegeid,
+            name : name,
             level : level,
             eligibility : eligibility,
             term : term,
@@ -186,7 +220,7 @@ router.post("/courses/:collegeid",function(req,res){
 });
 
 
-router.put("/college/:collegeid",middleware.adminUser,upload.single('image'),function(req,res){
+router.put("/college/:collegeid",function(req,res){
 
    
     
@@ -201,6 +235,16 @@ router.put("/college/:collegeid",middleware.adminUser,upload.single('image'),fun
     var email = req.body.email;
     var admit = req.body.admit;
 
+    var type = req.body.category;
+    var fact1 = req.body.fact1;
+    var fact2 = req.body.fact2;
+    var fact3 = req.body.fact3;
+    var fact4 = req.body.fact4;
+    
+
+    var placement1= { year: req.body.p1name, average : req.body.p1avg , highest: req.body.p1high, percentage: req.body.p1per }
+    var placement2= { year: req.body.p2name, average : req.body.p2avg , highest: req.body.p2high, percentage: req.body.p2per }
+
 
     var newEntry = {
         name: name,
@@ -211,7 +255,10 @@ router.put("/college/:collegeid",middleware.adminUser,upload.single('image'),fun
         data: data,
         contact: { phone: phone, email: email},
         location: location,
-        admit: admit
+        admit: admit,
+        type : type,
+        factS: [fact1,fact2,fact3,fact4],
+            placement: [placement1,placement2]
     }
 
     College.updateOne( { collegeid : req.params.collegeid },newEntry, function (err,editdata) {

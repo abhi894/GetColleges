@@ -1,0 +1,76 @@
+<%- include ("./includes/header") %>
+
+<center><div style="font-size: 2rem;"> <%= college.name %></div></center>
+
+ <center> <img src="<%= college.image %>" class=" college-image" alt="Responsive image"> </center>
+
+<div class="row" style="text-align: center; margin: 1rem;">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        Course : <%= course.name %>
+    </div>
+    <div class="col-md-3"></div>
+</div>
+<div class="row" style="text-align: center; margin: 1rem;">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        Eligibility : <%= course.eligibility %>
+    </div>
+    <div class="col-md-3"></div>
+</div>
+<div class="row" style="text-align: center; margin: 1rem;">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        Level : <%= course.level %>
+    </div>
+    <div class="col-md-3"></div>
+</div>
+<div class="row" style="text-align: center; margin: 1rem;">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        Term : <%= course.term %>
+    </div>
+    <div class="col-md-3"></div>
+</div>
+
+<div class="row" style="text-align: center; margin: 1rem;">
+    
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+      <u>Fees</u> 
+      <% course.fees.forEach(function(fees){ %>
+        <% if(fees.quota!= ""){ %>
+      <div class="row">
+          <div class="col-md-3">
+             
+             Quota :<%= fees.quota %>
+
+          </div>
+          <div class="col-md-3">
+            Term :<%= fees.term %>
+
+         </div>
+         <div class="col-md-3">
+            Amount :<%= fees.amount %>
+
+         </div>
+         <div class="col-md-3">
+            Hostel :<%= fees.hostel %>
+
+         </div>
+        
+      </div>
+      <% } %>
+        <% }) %>
+    </div>
+    <div class="col-md-3"></div>
+</div>
+
+<% if(college.admit==1){ %>
+    <center> <a href="#"> <button class="btn btn-success "> Apply Now </button></a></center>
+    <% } %>
+
+    <br>
+
+
+<%- include ("includes/footer") %>

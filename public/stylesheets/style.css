@@ -230,6 +230,12 @@ h2.blw{
     font-family: 'Times New Roman', Times, serif;
 }
 
+iframe{
+    width: 100%;
+    height: 100%;
+}
+
+
 .mainimage{
     background-image: url("../images/cover.jpg");
     background-size: cover;
@@ -266,3 +272,4 @@ h2.blw{
     color: #007bff;
     text-shadow: 1px 1px #8584b0;
 }
+
